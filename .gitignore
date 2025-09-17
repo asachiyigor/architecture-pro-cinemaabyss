@@ -110,6 +110,46 @@ Thumbs.db
 *.cer
 *.der
 *.priv
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_rsa.pub
+*.pub
+ssh_host_*
+.ssh/
+
+# API Keys and Secrets
+config/secrets.yaml
+secrets.yaml
+*-secret.yaml
+*-secrets.yaml
+secrets/
+.secrets/
+**/secrets/**
+jwt-secret
+api-key*
+*api-key*
+*-credentials.json
+credentials.json
+service-account*.json
+*.credentials
+auth.json
+.auth
+
+# Configuration files with sensitive data
+application-secrets.yml
+application-secrets.yaml
+application-*.properties
+config-secret*
+*-secret.conf
+secret.conf
+
+# Kubernetes secrets
+**/secret.yaml
+**/secrets.yaml
+dockerconfigjson*
 
 # Database files
 *.db

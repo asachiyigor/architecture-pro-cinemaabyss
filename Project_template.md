@@ -4,8 +4,7 @@
 
 1. Спроектируйте to be архитектуру КиноБездны, разделив всю систему на отдельные домены и организовав интеграционное взаимодействие и единую точку вызова сервисов.
 Результат представьте в виде контейнерной диаграммы в нотации С4.
-Добавьте ссылку на файл в этот шаблон
-[ссылка на файл](ссылка)
+[Диаграмма контейнеров](diagram/images/c4-architecture-diagram.png)
 
 
 ## Задание 2
@@ -57,7 +56,9 @@
     - Добавьте в docker-compose новый сервис, kafka там уже есть
 
 Необходимые тесты для проверки этого API вызываются при запуске npm run test:local из папки tests/postman 
-Приложите скриншот тестов и скриншот состояния топиков Kafka http://localhost:8090 
+Приложите [скриншот тестов](test-results/screenshots/local_tests.png) и [скриншот состояния топиков Kafka](test-results/screenshots/kafka_topics.png)
+
+
 
 
 ## Задание 3
@@ -226,23 +227,7 @@ cat .docker/config.json | base64
   kubectl -n cinemaabyss get pod
   ```
 
-  Будет наподобие такого
-
-  NAME                              READY   STATUS    
-
-  events-service-7587c6dfd5-6whzx   1/1     Running  
-
-  kafka-0                           1/1     Running   
-
-  monolith-8476598495-wmtmw         1/1     Running  
-
-  movies-service-6d5697c584-4qfqs   1/1     Running  
-
-  postgres-0                        1/1     Running  
-
-  proxy-service-577d6c549b-6qfcv    1/1     Running  
-
-  zookeeper-0                       1/1     Running 
+  Будет наподобие [такого](test-results/screenshots/get_pods.png)
 
   8. Добавим ingress
 
@@ -269,10 +254,10 @@ cat .docker/config.json | base64
    npm run test:kubernetes
   ```
   Часть тестов с health-чек упадет, но создание событий отработает.
-  Откройте логи event-service и сделайте скриншот обработки событий
+  Откройте логи event-service и сделайте [скриншот обработки событий]
 
 #### Шаг 3
-Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
+Добавьте сюда [**скриншот**](test-results/screenshots/movies_call.png) вывода при вызове https://cinemaabyss.example.com/api/movies и  [**скриншот**](test-results/screenshots/event-service_after_test.png) вывода event-service после вызова тестов.
 
 
 ## Задание 4
@@ -347,7 +332,7 @@ minikube tunnel
 
 Потом вызовите 
 https://cinemaabyss.example.com/api/movies
-и приложите скриншот развертывания helm и вывода https://cinemaabyss.example.com/api/movies
+и приложите скриншот развертывания helm и [скриншот](test-results/screenshots/helm_movie_shot.png) вывода https://cinemaabyss.example.com/api/movies
 
 
 # Задание 5
@@ -400,7 +385,7 @@ Code 200 : 79 (15.8 %)
 Code 500 : 22 (4.4 %)
 Code 503 : 399 (79.8 %)
 ```
-Можно еще проверить статистику
+Можно еще проверить [статистику](test-results/screenshots/fortio_stats.png)
 
 ```bash
 kubectl exec -n cinemaabyss fortio-deploy-b6757cbbb-7c9qg -c istio-proxy -- pilot-agent request GET stats | grep movies-service | grep pending
@@ -413,7 +398,7 @@ cluster.outbound|8081||movies-service.cinemaabyss.svc.cluster.local;.upstream_rq
 You can see 21 for the upstream_rq_pending_overflow value which means 21 calls so far have been flagged for circuit breaking.
 ```
 
-Приложите скриншот работы circuit breaker'а
+Приложите [**скриншот**](test-results/screenshots/circuit_breaker_stats.png) работы circuit breaker'а
 
 Удаляем все
 ```bash
