@@ -1,6 +1,6 @@
 @startuml
 !pragma charset UTF-8
-skinparam defaultFontName "Segoe UI"
+skinparam defaultFontName "DejaVu Sans"
 !include <C4/C4_Container>
 
 title Диаграмма контейнеров - Архитектура микросервисов CinemaAbyss
