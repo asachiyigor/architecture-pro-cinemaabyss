@@ -1,6 +1,5 @@
 # Global settings
 global:
-  namespace: cinemaabyss-helm
   domain: cinemaabyss.example.com
 
 # Image pull secrets - configured for GitHub Container Registry
@@ -35,7 +34,7 @@ monolith:
   image:
     repository: ghcr.io/asachiyigor/architecture-pro-cinemaabyss/monolith
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
@@ -55,7 +54,7 @@ proxyService:
   image:
     repository: ghcr.io/asachiyigor/architecture-pro-cinemaabyss/proxy-service
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
@@ -75,7 +74,7 @@ moviesService:
   image:
     repository: ghcr.io/asachiyigor/architecture-pro-cinemaabyss/movies-service
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
@@ -95,7 +94,7 @@ eventsService:
   image:
     repository: ghcr.io/asachiyigor/architecture-pro-cinemaabyss/events-service
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
