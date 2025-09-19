@@ -1,0 +1,67 @@
+================================================================
+🎬 CinemaAbyss Events Service MVP - Live Processing Logs
+================================================================
+Port: 8083 | Kafka: localhost:9092 | Status: Running
+
+2025/09/16 23:47:54 🚀 Starting Events Service MVP with Kafka integration on port 8083
+2025/09/16 23:47:54 📡 Kafka brokers: localhost:9092
+2025/09/16 23:47:54 🌐 Available endpoints:
+   POST /api/events/user    - Create user event
+   POST /api/events/movie   - Create movie event
+   POST /api/events/payment - Create payment event
+   GET  /api/events         - Get all events
+
+----------------------------------------------------------------
+📝 EVENT PROCESSING ACTIVITY (Latest)
+----------------------------------------------------------------
+
+2025/09/16 23:48:41 📥 👤 USER event creation requested with data: map[action:register email:test@example.com user_id:123]
+2025/09/16 23:48:41 📝 Processing user_event event #3 with data: map[action:register email:test@example.com user_id:123]
+2025/09/16 23:48:51 ⚙️ Processing event #3 of type 'user_event'
+2025/09/16 23:48:51 👤 USER EVENT PROCESSED: map[action:register email:test@example.com user_id:123]
+2025/09/16 23:48:51    - User ID: 123
+2025/09/16 23:48:51    - Action: register
+2025/09/16 23:48:51 ✅ Event #3 processing completed at 23:48:51
+
+2025/09/16 23:49:19 📥 🎬 MOVIE event creation requested with data: map[action:watched duration:150 movie_id:999 user_id:123]
+2025/09/16 23:49:19 📝 Processing movie_event event #4 with data: map[action:watched duration:150 movie_id:999 user_id:123]
+2025/09/16 23:49:29 ⚙️ Processing event #4 of type 'movie_event'
+2025/09/16 23:49:29 🎬 MOVIE EVENT PROCESSED: map[action:watched duration:150 movie_id:999 user_id:123]
+2025/09/16 23:49:29    - Movie ID: 999
+2025/09/16 23:49:29    - Action: watched
+2025/09/16 23:49:29 ✅ Event #4 processing completed at 23:49:29
+
+2025/09/16 23:49:34 📥 💳 PAYMENT event creation requested with data: map[amount:19.99 currency:USD plan:premium user_id:123]
+2025/09/16 23:49:34 📝 Processing payment_event event #5 with data: map[amount:19.99 currency:USD plan:premium user_id:123]
+2025/09/16 23:49:44 ⚙️ Processing event #5 of type 'payment_event'
+2025/09/16 23:49:44 💳 PAYMENT EVENT PROCESSED: map[amount:19.99 currency:USD plan:premium user_id:123]
+2025/09/16 23:49:44    - Amount: 19.99
+2025/09/16 23:49:44    - User ID: 123
+2025/09/16 23:49:44 ✅ Event #5 processing completed at 23:49:44
+
+2025/09/16 23:56:26 📥 👤 USER event creation requested with data: map[action:profile_update changes:[email preferences] user_id:456]
+2025/09/16 23:56:26 📝 Processing user_event event #7 with data: map[action:profile_update changes:[email preferences] user_id:456]
+2025/09/16 23:56:36 ⚙️ Processing event #7 of type 'user_event'
+2025/09/16 23:56:36 👤 USER EVENT PROCESSED: map[action:profile_update changes:[email preferences] user_id:456]
+2025/09/16 23:56:36    - User ID: 456
+2025/09/16 23:56:36    - Action: profile_update
+2025/09/16 23:56:36 ✅ Event #7 processing completed at 23:56:36
+
+2025/09/16 23:56:52 📥 🎬 MOVIE event creation requested with data: map[action:finished_watching movie_id:2 rating:5 user_id:456]
+2025/09/16 23:56:52 📝 Processing movie_event event #8 with data: map[action:finished_watching movie_id:2 rating:5 user_id:456]
+2025/09/16 23:57:02 ⚙️ Processing event #8 of type 'movie_event'
+2025/09/16 23:57:02 🎬 MOVIE EVENT PROCESSED: map[action:finished_watching movie_id:2 rating:5 user_id:456]
+2025/09/16 23:57:02    - Movie ID: 2
+2025/09/16 23:57:02    - Action: finished_watching
+2025/09/16 23:57:02 ✅ Event #8 processing completed at 23:57:02
+
+----------------------------------------------------------------
+📊 PROCESSING SUMMARY
+----------------------------------------------------------------
+✅ Total Events Processed: 8
+👤 User Events: 4 (login, register, logout, profile_update)
+🎬 Movie Events: 3 (viewed, watched, finished_watching)
+💳 Payment Events: 1 (premium plan purchase)
+⚠️ Kafka Fallback: Active (local storage working)
+🔄 Service Status: Healthy and Processing
+----------------------------------------------------------------

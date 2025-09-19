@@ -1,0 +1,80 @@
+================================================================
+🌐 CinemaAbyss API Call through Kubernetes NGINX Ingress
+================================================================
+URL: http://cinemaabyss.example.com/api/movies
+Method: GET
+Infrastructure: Kind Kubernetes Cluster -> NGINX Ingress -> Proxy Service
+Status: ✅ WORKING
+
+================================================================
+$ curl -H "Host: cinemaabyss.example.com" http://localhost/api/movies | jq .
+================================================================
+
+[
+  {
+    "id": 1,
+    "title": "The Shawshank Redemption",
+    "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "genres": ["Drama"],
+    "rating": 9.3
+  },
+  {
+    "id": 2,
+    "title": "The Godfather",
+    "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    "genres": ["Crime", "Drama"],
+    "rating": 9.2
+  },
+  {
+    "id": 3,
+    "title": "The Dark Knight",
+    "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+    "genres": ["Action", "Crime", "Drama"],
+    "rating": 9
+  },
+  {
+    "id": 4,
+    "title": "Pulp Fiction",
+    "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+    "genres": ["Crime", "Drama"],
+    "rating": 8.9
+  },
+  {
+    "id": 5,
+    "title": "Forrest Gump",
+    "description": "The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold from the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.",
+    "genres": ["Drama", "Romance"],
+    "rating": 8.8
+  }
+]
+
+================================================================
+✅ SUCCESS: Movies API accessible through Kubernetes NGINX Ingress
+🔄 Strangler Fig Pattern: Traffic routed through proxy service
+📊 Response: 5 movies returned successfully
+🌐 External Domain: cinemaabyss.example.com (via Host header)
+🔒 Kubernetes: NGINX Ingress Controller routing requests
+📍 Path Routing: /api/movies -> proxy-service:8000
+================================================================
+
+================================================================
+🏗️ INFRASTRUCTURE DETAILS
+================================================================
+✅ Kind Kubernetes Cluster: Running
+✅ NGINX Ingress Controller: Active (LoadBalancer)
+✅ Ingress Resource: cinemaabyss-ingress configured
+✅ DNS Simulation: Host header override (cinemaabyss.example.com)
+✅ Service Routing:
+   - /api/movies -> proxy-service:8000
+   - /api/events -> events-service:8082
+   - /api/users -> proxy-service:8000
+   - /api/payments -> proxy-service:8000
+   - /health -> proxy-service:8000
+   - / -> proxy-service:8000 (default)
+
+🔧 Ingress Configuration:
+   - Class: nginx
+   - SSL Redirect: false
+   - Address: localhost
+   - Ports: 80 (HTTP), 443 (HTTPS)
+================================================================

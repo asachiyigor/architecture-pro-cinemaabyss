@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortio-deploy
+  namespace: cinemaabyss
+  labels:
+    app: fortio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortio
+  template:
+    metadata:
+      labels:
+        app: fortio
+    spec:
+      containers:
+      - name: fortio
+        image: fortio/fortio:latest
+        ports:
+        - containerPort: 8080
+          name: http-fortio
+        - containerPort: 8079
+          name: grpc-ping
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fortio
+  namespace: cinemaabyss
+  labels:
+    app: fortio
+spec:
+  ports:
+  - port: 8080
+    name: http-fortio
+  - port: 8079
+    name: grpc-ping
+  selector:
+    app: fortio
+  type: ClusterIP
+
+---
+# Fortio load testing configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fortio-scripts
+  namespace: cinemaabyss
+data:
+  test-circuit-breaker.sh: |
+    #!/bin/bash
+    echo "=== Testing Circuit Breaker for Monolith Service ==="
+    fortio load -c 20 -qps 0 -n 100 -loglevel Warning http://monolith:8080/health
+
+    echo "=== Testing Circuit Breaker for Movies Service ==="
+    fortio load -c 20 -qps 0 -n 100 -loglevel Warning http://movies-service:8081/health
+
+    echo "=== High load test to trigger circuit breaker ==="
+    fortio load -c 50 -qps 0 -n 200 -loglevel Warning http://monolith:8080/api/users
+
+  canary-test.sh: |
+    #!/bin/bash
+    echo "=== Canary deployment testing ==="
+    # Test with different load patterns
+    fortio load -c 5 -qps 10 -t 30s -loglevel Warning http://movies-service:8081/health
+
+    echo "=== Load test for canary validation ==="
+    fortio load -c 10 -qps 20 -t 60s -loglevel Warning http://proxy-service:8000/api/movies
